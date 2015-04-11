@@ -10,3 +10,15 @@ button
 	margin: 5px auto;
 	padding: 10px;
 }
+
+button.small
+{
+	height: 10%;
+	width: 30%;
+}
+
+#client-qr
+{
+	margin: auto;
+	width: 400px;
+}

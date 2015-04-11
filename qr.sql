@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Apr 11, 2015 at 06:28 PM
+-- Generation Time: Apr 11, 2015 at 07:27 PM
 -- Server version: 5.5.41-log
 -- PHP Version: 5.5.19
 
@@ -46,15 +46,16 @@ CREATE TABLE IF NOT EXISTS `queues` (
   `current_number` int(11) NOT NULL,
   `last_customer_number` int(11) NOT NULL,
   `token` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `queues`
 --
 
 INSERT INTO `queues` (`id`, `name`, `estimated_service_time`, `current_number`, `last_customer_number`, `token`) VALUES
-(5, 'MyQueue', 4, 1, 0, 'f752c5635afa9d18702a5ce2588d1199'),
-(7, 'whatever', 5, 1, 0, '8cb8deb916d963115338128a3c27631b');
+(7, 'whatever', 5, 1, 11, '8cb8deb916d963115338128a3c27631b'),
+(8, 'asdf', 5, 1, 1, '8519c0482e73b75ef6f17249cfdffb00'),
+(9, 'asdf', 6, 1, 1, 'f5454312b5d90edc8ceae8038b66334a');
 
 --
 -- Indexes for dumped tables
@@ -80,7 +81,7 @@ ALTER TABLE `queues`
 -- AUTO_INCREMENT for table `queues`
 --
 ALTER TABLE `queues`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

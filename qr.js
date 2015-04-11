@@ -1,16 +1,17 @@
+user = "";
 $(document).ready(function()
 {
 	$("#create").click(function()
 	{
 		$.get("api/index.php", 
-			{action: "createNewQueue", name: "test", time: 45},
+			{action: "createNewQueue", name: "test", time: 20},
 			function(data)
 			{
-				alert("data got");
-				console.log(data);
+				//console.log(data);
+				queuer("http://localhost/qr/?" + data.id);
+				//$.cookie(data.token);
 			}, "json");
 		//display qr with link from data
-		queuer("dummy");
 	});
 	$("#join").click(function()
 	{
@@ -26,10 +27,29 @@ $(document).ready(function()
 	});
 
 	if(status == "polling")
-		alert("polling timer set");
+	{
+		$.get("api/index.php", 
+			{action: "createNewCustomer", id: queue},
+			function(data)
+			{
+				console.log(data);
+				user = data.id;
+				setInterval(poll, 1000);
+			}, "json");
+	}
 });
 
-function queuer(text)
+function poll()
+{
+	$.get("api/index.php", 
+		{action: "getStatus", id: user},
+		function(data)
+		{
+			$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber);
+		}, "json");
+}
+
+function queuer(link)
 {
     options = 
 	{
@@ -57,7 +77,7 @@ function queuer(text)
 	background: null,
 
 	// content
-	text: text,
+	text: link,
 
 	// corner radius relative to module width: 0.0 .. 0.5
 	radius: 0,
@@ -86,6 +106,3 @@ function queuer(text)
     $("#client-qr").qrcode(options);
 }
 
-function poll()
-{
-}

@@ -1,6 +1,7 @@
 <?php
 
 $status = "default";
+$queue = "";
 
 if(isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] != "")
 {
@@ -22,6 +23,7 @@ if(isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] != "")
 <!-- variables for js -->
 <script type="text/javascript">
 status = "<? echo $status; ?>";
+queue = "<? echo $queue; ?>";
 </script>
 
 </head>
@@ -33,7 +35,10 @@ status = "<? echo $status; ?>";
 	<div id="client-qr">
 	</div>
 <? } else if($status == "polling") { ?>
-	Polling
+	<p id="info"></p>
+	<button class="small">Trade places</button>
+	<button class="small">Leave queue</button>
+	You need to pay for the service!
 <? } ?>
 </body>
 
