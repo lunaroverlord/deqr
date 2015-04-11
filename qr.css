@@ -10,3 +10,9 @@ button
 	margin: 5px auto;
 	padding: 10px;
 }
+
+#client-qr
+{
+	margin: auto;
+	width: 400px;
+}
