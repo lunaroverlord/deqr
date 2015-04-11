@@ -22,3 +22,9 @@ button.small
 	margin: auto;
 	width: 400px;
 }
+
+p.charging
+{
+	font-size: 18px;
+	font-family:sans-serif;
+}

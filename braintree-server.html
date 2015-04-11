@@ -1,46 +1,17 @@
-<?php
-
-$status = "default";
-$queue = "";
-
-if(isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] != "")
-{
-	$status = "polling";
-	$queue = $_SERVER["QUERY_STRING"];
-}
-
-
-?>
-<html>
-
-<head>
-<title>Queuer - use your queuing time productively</title>
-<link rel="stylesheet" type="text/css" href="qr.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="qr_generate/jquery.qrcode-0.11.0.min.js"></script>
-<script src="qr.js"></script>
-
-<!-- variables for js -->
-<script type="text/javascript">
-status = "<? echo $status; ?>";
-queue = "<? echo $queue; ?>";
-</script>
-
-</head>
-
-<body>
-<? if($status == "default") { ?>
-	<button id="create">Create a queue</button>
-	<button id="join">Join a queue</button>
-	<div id="client-qr">
-	</div>
-<? } else if($status == "polling") { ?>
-	<p id="info"></p>
-	<button class="small">Trade places</button>
-	<button class="small">Leave queue</button>
-
-	<p class="charging">The vendor is charging $10 for the service, you can pay any time.</p>
-        <div class="braintree">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>QUEUER</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+        <link rel="stylesheet" href="qr.css">
+    </head>
+    <body>
+        <div class="container">
         <form id="checkout" method="post" action="/checkout">
             <div id="dropin"></div>
             <input type="submit" value="Pay $10">
@@ -66,7 +37,5 @@ queue = "<? echo $queue; ?>";
             
         </script>
     </div>
-<? } ?>
-</body>
-
+    </body>
 </html>

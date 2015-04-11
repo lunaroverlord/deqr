@@ -41,11 +41,13 @@ $(document).ready(function()
 
 function poll()
 {
+			alert("data");
 	$.get("api/index.php", 
 		{action: "getStatus", id: user},
 		function(data)
 		{
-			$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber);
+			alert("data2");
+			$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime);
 		}, "json");
 }
 
