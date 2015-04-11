@@ -3,9 +3,9 @@
  class DB{
 
     private static $db = NULL;
-    public static $CONNECTION_STRING = "mysql:host=localhost;dbname=qr;charset=utf8";
-    public static $DB_USER = "root";
-    public static $DB_PASS = "root";
+    public static $CONNECTION_STRING = "mysql:host=http://104.236.42.108/;dbname=qr;charset=utf8";
+    public static $DB_USER = "olaf@localhost";
+    public static $DB_PASS = "asdf1234";
 
     public static function getInstance() {
         if (is_null(self::$db)) {
