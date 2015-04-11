@@ -12,6 +12,7 @@ class Queue{
   public $current_number;
   public $last_customer_number;
   public $token;
+  public $last_service_time;
 
 
   public function __construct($id){  
@@ -25,6 +26,7 @@ class Queue{
         $this->current_number = $row['current_number'];
         $this->token = $row['token'];
         $this->last_customer_number = $row['last_customer_number'];
+        $this->last_service_time = $row['last_service_time'];
     }
   }
 
@@ -69,8 +71,21 @@ class Queue{
     //$db = DB::getInstance();
     $mysqli = new mysqli("localhost", "root", "root", "qr");
     $this->current_number = $this->current_number + 1;
+    $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
     $mysqli->query("UPDATE `Queues` SET `current_number` = $current_number WHERE id = ".$this->id);
+    
+
   }
+
+  public function calculateEstimatedTime($newServiceTime){
+    echo $newServiceTime;
+    $serviceTime = $newServiceTime - $this->last_service_time;
+    echo $serviceTime;
+
+  }
+
+
+
 
   public function getID(){
     return $this->id;
@@ -89,6 +104,10 @@ class Queue{
   }
   public function getLastCustomerNumber(){
     return $this->last_customer_number;
+  }
+
+  public function getLastServiceTime(){
+    return $this->last_service_time;
   }
 
 }

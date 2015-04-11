@@ -39,7 +39,7 @@ elseif($action=="checkIfCurrentCustomer"){
 	$queue = new Queue($queueid);
 	$data = array();
 	if($queue->getCurrentNumber()==$customer->getNumber()){
-		// The customer is being served
+		$queue->getToNextCustomer();
 		$data['result']=true;
 	}else{
 		$data['result']=false;
@@ -51,10 +51,13 @@ elseif($action=="getStatus"){
 	$customer = new Customer($id);
 	$queueid = $customer->getQueueID();
 	$queue = new Queue($queueid);
-	$data =  array();
+	$data = array();
 	$data['currentNumber'] = $queue->getCurrentNumber();
 	$data['customerNumber'] = $customer->getNumber();
 	$data['lastPersonNumber'] = $queue->getLastCustomerNumber();
 	$data['queueName'] = $queue->name;
+	$data['estimatedTime'] = $queue->estimated_service_time*($customer->getNumber() - $queue->getCurrentNumber());
+	echo json_encode($data);
 }
+
 ?>
