@@ -8,15 +8,14 @@ spl_autoload_register(function ($class) {
 });
 
 $action = isset($_GET['action'])?$_GET['action']:"";
-$action = isset($_GET['token'])?$_GET['token']:"";
+$token = isset($_GET['token'])?$_GET['token']:"";
 
 
 if($action == "createNewQueue"){
 	echo "creating queue";
 	$name = isset($_GET['name'])?$_GET['name']:"";
 	$estimatedTime = isset($_GET['time'])?$_GET['time']:5;
-	$queueID = Queue::createNewQueue($name, $estimatedTime);
-	echo $queueID;
+	$queueID = Queue::create($name, $estimatedTime);
 	$queue = new Queue($queueID);
 	$data = array();
 	$data['id'] = $queue->getID();
