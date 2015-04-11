@@ -2,6 +2,11 @@ button
 {
 	display: block;
 	width: 80%;
-	background: #3422ff;
-
+	height: 30%;
+	font-size: 200%;
+	background: #ddddff;
+	border-radius:6px;
+	border:none;
+	margin: 5px auto;
+	padding: 10px;
 }
