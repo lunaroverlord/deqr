@@ -28,15 +28,20 @@ class Queue{
   }
 
   public static function create($name, $estimated_service_time){
+	  $mysqli = new mysqli("localhost", "root", "", "qr");
+	  /*
     $db = DB::getInstance();
+	   */
     $timeRightNow = time();
     $token = md5($name.$estimated_service_time.$timeRightNow);
-    $stmt = $db->prepare("INSERT INTO Queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`) VALUES(?, ?, 1, 1, ?)");
+    $stmt = $mysqli->query("INSERT INTO queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`) VALUES('$name', '$estimated_service_time', 1, 1, '$token')");
+    /*
     $stmt->bindParam(1, $name);
     $stmt->bindParam(2, $estimated_service_time);
     $stmt->bindParam(3, $token);
     $stmt->execute();
-    return $db->lastInsertId();
+     */
+    return $mysqli->insert_id;
   }
 
   public function setMyCookie(){
