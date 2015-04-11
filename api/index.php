@@ -29,10 +29,15 @@ elseif($action=="createNewCustomer"){
 	$id = isset($_GET['id'])?$_GET['id']:"";
 	$token = isset($_GET['token'])?$_GET['token']:"";
 	$queue = new Queue($id);
-	$number = $queue->nextCustomer();
-	echo $number;
+	echo $queue->token;
+	echo "<br>".$token;
 	if($queue->checkToken($token)){
+	$number = $queue->nextCustomer();
+		echo $number;
 		$customer = new Customer($id, $number, $token);
+	}
+	else{
+		echo $token;
 	}
 }
 

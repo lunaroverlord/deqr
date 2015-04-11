@@ -56,7 +56,7 @@ class Queue{
   public function nextCustomer(){
     $db = DB::getInstance();
     $this->last_customer_number = $this->last_customer_number + 1;
-    $db->exec("UPDATE `Queues` SET `last_customer_number` = $last_customer_number WHERE id = ".$this->id);
+    $db->exec("UPDATE `Queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id);
   }
 
   public function getToNextCustomer(){
