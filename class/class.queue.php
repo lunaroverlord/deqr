@@ -40,6 +40,16 @@ class Queue{
     setcookie($this->name, $this->token, time() + (86400 * 30), "/");
   }
 
+  public function delete(){
+    $db = DB::getInstance();
+    $id = $this->id();
+    $db->exec("DELETE FROM `Queues` WHERE `id` = $id");
+  }
+
+  public function checkToken($token){
+    return ($this->token==$token)?true:false;
+  }
+
 
 
 

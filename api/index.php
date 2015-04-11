@@ -15,8 +15,25 @@ if($action == "createNewQueue"){
 	$estimatedTime = isset($_GET['time'])?$_GET['time']:5;
 	$queueID = Queue::createNewQueue($name, $estimatedTime);
 	$queue = new Queue($queueID);
-	$queue->setMyCookie();
+	$data = array();
+	$data['id'] = $queue->getID();
+	$data['token'] = $queue->getToken();
+	echo json_encode($data);
 }
+elseif ($action=="deleteQueue") {
+	$id = isset($_GET['id'])?$_GET['id']:"";
+	$queue = new Queue($id);4
+	$queue->delete();
+}
+elseif($action=="createNewCustomer"){
+	$id = isset($_GET['id'])?$_GET['id']:"";
+	$token = isset($_GET['token'])?$_GET['token']:"";
+	$queue = new Queue($id);
+	if($queue->checkToken()){
+		$customer = new Customer($id, $token);
+	}
+}
+
 
 
 
