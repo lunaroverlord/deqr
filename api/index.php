@@ -10,9 +10,7 @@ spl_autoload_register(function ($class) {
 $action = isset($_GET['action'])?$_GET['action']:"";
 $token = isset($_GET['token'])?$_GET['token']:"";
 
-
 if($action == "createNewQueue"){
-	echo "creating queue";
 	$name = isset($_GET['name'])?$_GET['name']:"";
 	$estimatedTime = isset($_GET['time'])?$_GET['time']:5;
 	$queueID = Queue::create($name, $estimatedTime);
@@ -31,8 +29,10 @@ elseif($action=="createNewCustomer"){
 	$id = isset($_GET['id'])?$_GET['id']:"";
 	$token = isset($_GET['token'])?$_GET['token']:"";
 	$queue = new Queue($id);
-	if($queue->checkToken()){
-		$customer = new Customer($id, $token);
+	$number = $queue->nextCustomer();
+	echo $number;
+	if($queue->checkToken($token)){
+		$customer = new Customer($id, $number, $token);
 	}
 }
 

@@ -10,6 +10,7 @@ class Queue{
   public $name;
   public $estimated_service_time;
   public $current_number;
+  public $last_customer_number;
   public $token;
 
 
@@ -21,7 +22,8 @@ class Queue{
         $this->estimated_service_time = $row['estimated_service_time'];
         $this->current_number = $row['current_number'];
         $this->token = $row['token'];
-        
+        $this->last_customer_number = $row['last_customer_number'];
+
     }
   }
 
@@ -29,7 +31,7 @@ class Queue{
     $db = DB::getInstance();
     $timeRightNow = time();
     $token = md5($name.$estimated_service_time.$timeRightNow);
-    $stmt = $db->prepare("INSERT INTO Queues(`name`, `estimated_service_time`,`current_number`, `token`) VALUES(?, ?, 1, ?)");
+    $stmt = $db->prepare("INSERT INTO Queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`) VALUES(?, ?, 1, 1, ?)");
     $stmt->bindParam(1, $name);
     $stmt->bindParam(2, $estimated_service_time);
     $stmt->bindParam(3, $token);
@@ -43,7 +45,7 @@ class Queue{
 
   public function delete(){
     $db = DB::getInstance();
-    $id = $this->id();
+    $id = $this->id;
     $db->exec("DELETE FROM `Queues` WHERE `id` = $id");
   }
 
@@ -51,18 +53,16 @@ class Queue{
     return ($this->token==$token)?true:false;
   }
 
-
-
-
-
   public function nextCustomer(){
     $db = DB::getInstance();
-    $current_number = $current_number + 1;
-    $db->exec("UPDATE `Queues` SET `current_number` = $current_number");
+    $this->last_customer_number = $this->last_customer_number + 1;
+    $db->exec("UPDATE `Queues` SET `last_customer_number` = $last_customer_number WHERE id = ".$this->id);
   }
 
-  public function checkCurrentPerson(){
-
+  public function getToNextCustomer(){
+     $db = DB::getInstance();
+    $this->current_number = $this->current_number + 1;
+    $db->exec("UPDATE `Queues` SET `current_number` = $current_number WHERE id = ".$this->id);
   }
 
   public function getID(){
