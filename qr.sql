@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Apr 11, 2015 at 07:27 PM
+-- Generation Time: Apr 12, 2015 at 12:48 AM
 -- Server version: 5.5.41-log
 -- PHP Version: 5.5.19
 
@@ -27,11 +27,31 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `customers` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `number` int(11) NOT NULL,
   `queue_id` int(11) NOT NULL,
   `token` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `number`, `queue_id`, `token`) VALUES
+(1, 6, 15, ''),
+(2, 8, 15, ''),
+(3, 9, 15, ''),
+(4, 1, 17, ''),
+(5, 2, 17, ''),
+(6, 2, 24, ''),
+(7, 3, 24, ''),
+(8, 4, 24, ''),
+(9, 3, 17, ''),
+(10, 1, 27, ''),
+(11, 2, 25, ''),
+(12, 2, 26, ''),
+(13, 2, 27, ''),
+(14, 1, 28, '');
 
 -- --------------------------------------------------------
 
@@ -42,20 +62,12 @@ CREATE TABLE IF NOT EXISTS `customers` (
 CREATE TABLE IF NOT EXISTS `queues` (
 `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `estimated_service_time` int(11) NOT NULL,
+  `estimated_service_time` double NOT NULL,
   `current_number` int(11) NOT NULL,
   `last_customer_number` int(11) NOT NULL,
-  `token` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Dumping data for table `queues`
---
-
-INSERT INTO `queues` (`id`, `name`, `estimated_service_time`, `current_number`, `last_customer_number`, `token`) VALUES
-(7, 'whatever', 5, 1, 11, '8cb8deb916d963115338128a3c27631b'),
-(8, 'asdf', 5, 1, 1, '8519c0482e73b75ef6f17249cfdffb00'),
-(9, 'asdf', 6, 1, 1, 'f5454312b5d90edc8ceae8038b66334a');
+  `token` varchar(100) NOT NULL,
+  `last_service_time` datetime NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Indexes for dumped tables
@@ -78,10 +90,15 @@ ALTER TABLE `queues`
 --
 
 --
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
 -- AUTO_INCREMENT for table `queues`
 --
 ALTER TABLE `queues`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
