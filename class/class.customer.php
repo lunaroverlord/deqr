@@ -1,15 +1,24 @@
-public class DB{
+<?php
 
-    private static $db = NULL;
-    public static $CONNECTION_STRING = "mysql:host=localhost;dbname=qr;charset=utf8";
-    public static $DB_USER = "root";
-    public static $DB_PASS = "";
+class Customer{
 
-    public static function getInstance() {
-        if (is_null(self::$db)) {
-            self::$db = new PDO(self::$CONNECTION_STRING, self::$DB_USER, self::$DB_PASS);
-        }
-        return self::$db;
+  public $id;
+  public $number;
+  public $queue_id;
+  public $token;
+
+    public function __construct($id){
+        $db = DB::getInstance();
+        foreach($db->query("SELECT * FROM `Customers` WHERE id =".$id) as $row){
+        $this->id = $row['id'];
+        $this->number = $row['number'];
+        $this->queue_id = $row['queue_id'];
+        $this->token = $row['token'];
+    }
     }
 
+
+
 }
+
+?>
