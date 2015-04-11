@@ -35,7 +35,7 @@ queue = "<? echo $queue; ?>";
 	<div id="client-qr">
 	</div>
 <? } else if($status == "polling") { ?>
-	Estimated waiting time: 12:04s
+	<p id="info"></p>
 	<button class="small">Trade places</button>
 	<button class="small">Leave queue</button>
 	You need to pay for the service!

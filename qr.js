@@ -1,3 +1,4 @@
+user = "";
 $(document).ready(function()
 {
 	$("#create").click(function()
@@ -28,26 +29,23 @@ $(document).ready(function()
 	if(status == "polling")
 	{
 		$.get("api/index.php", 
-			{id: queue},
+			{action: "createNewCustomer", id: queue},
 			function(data)
 			{
-				//console.log(data);
-				queuer("http://localhost/qr/?" + data.id);
-				//$.cookie(data.token);
+				console.log(data);
+				user = data.id;
+				setInterval(poll, 1000);
 			}, "json");
-		setInterval(poll, 1000);
 	}
 });
 
 function poll()
 {
 	$.get("api/index.php", 
-		{action: "createNewQueue", name: "test", time: 20},
+		{action: "getStatus", id: user},
 		function(data)
 		{
-			//console.log(data);
-			queuer("http://localhost/qr/?" + data.id);
-			//$.cookie(data.token);
+			$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber);
 		}, "json");
 }
 

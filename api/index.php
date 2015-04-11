@@ -25,7 +25,6 @@ elseif($action=="createNewCustomer"){
 	$id = isset($_GET['id'])?$_GET['id']:"";
 	$queue = new Queue($id);
 	$number = $queue->nextCustomer();
-	echo $number;
 	
 	$customerID = Customer::create($id, $number);
 	$data = array();
@@ -56,5 +55,6 @@ elseif($action=="getStatus"){
 	$data['customerNumber'] = $customer->getNumber();
 	$data['lastPersonNumber'] = $queue->getLastCustomerNumber();
 	$data['queueName'] = $queue->name;
+	echo json_encode($data);
 }
 ?>

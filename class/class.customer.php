@@ -27,7 +27,6 @@ class Customer{
         $mysqli = new mysqli("localhost", "root", "root", "qr");
         //$token = md5($token.$number);
         $sql = "INSERT INTO `customers`(`number`, `queue_id`) VALUES($number, $queueID)";
-        echo $sql;
         $mysqli->query($sql);
         return $mysqli->insert_id;
     }
