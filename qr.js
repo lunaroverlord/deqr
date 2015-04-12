@@ -71,7 +71,7 @@ function poll()
 		function(data)
 		{
 			/*$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime + " minutes");*/
-			$("#info").html("<div id = 'statusContainer'><div id='customerNumber'><span>Your number: </span>" + data.customerNumber + "</div><div id='currentNumber'><span>Currently serving: </span>" + data.currentNumber + "</div><div id='estimatedTime'><span>You have to wait roughly </span>" + data.estimatedTime + " <span>minutes</span></div></div>");
+			$("#info").html("<div id = 'statusContainer'><div id='customerNumber'><span>Your number: </span>" + data.customerNumber + "</div><div id='currentNumber'><span>Currently serving: </span>" + data.currentNumber + "</div><div id='estimatedTime'><span>You have to wait roughly </span>" + Math.abs(data.estimatedTime) + " <span>minutes</span></div></div>");
 			/*
 			console.log(data.customerNumber);
 			console.log(data.currentNumber);
