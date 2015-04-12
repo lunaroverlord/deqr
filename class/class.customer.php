@@ -17,7 +17,8 @@ class Customer{
     public function __construct($id){
     $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
         $res = $mysqli->query("SELECT * FROM `customers` WHERE id =".$id);
-        foreach($res as $row){
+	while ($row = mysqli_fetch_array($res))
+	{
             $this->id = $row['id'];
             $this->number = $row['number'];
             $this->queueID = $row['queue_id'];

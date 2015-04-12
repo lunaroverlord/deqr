@@ -1,9 +1,9 @@
 <?
-
 class G
 {
-  public static $host = "localhost";
-  public static $user = "root";
-  public static $pass = "root";
+	public static $host = "lunaroverlord.cn3imgfeosz7.eu-west-1.rds.amazonaws.com";
+	public static $user = "maksis";
+	public static $pass = "esmugejs";
 }
 ?>
+

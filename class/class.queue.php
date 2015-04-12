@@ -22,7 +22,8 @@ class Queue{
 
     $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $result = $mysqli->query("SELECT * FROM `queues` WHERE id =".$id);
-    foreach($result as $row){
+    while($row = mysqli_fetch_assoc($result))
+    {
         $this->id = $row['id'];
         $this->name = $row['name'];
         $this->estimated_service_time = $row['estimated_service_time'];
@@ -40,7 +41,7 @@ class Queue{
 	   */
     $timeRightNow = time();
     $token = md5($name.$estimated_service_time.$timeRightNow);
-    $stmt = $mysqli->query("INSERT INTO queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`) VALUES('$name', '$estimated_service_time', 1, 0, '$token')");
+    $stmt = $mysqli->query("INSERT INTO queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`) VALUES('$name', '$estimated_service_time', 1, 1, '$token')");
     /*
     $stmt->bindParam(1, $name);
     $stmt->bindParam(2, $estimated_service_time);

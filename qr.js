@@ -9,7 +9,7 @@ $(document).ready(function()
 			function(data)
 			{
 				//console.log(data);
-				queuer("http://localhost/qr/?" + data.id);
+				queuer("http://olafs.eu/qr/?" + data.id);
 				//$.cookie(data.token);
 			}, "json");
 		//display qr with link from data
@@ -47,6 +47,7 @@ function poll()
 		{action: "getStatus", id: user},
 		function(data)
 		{
+console.log(data);
 			$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime);
 		}, "json");
 }
