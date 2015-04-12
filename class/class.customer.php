@@ -1,4 +1,5 @@
 <?php
+require_once "cred.php";
 
 date_default_timezone_set('Europe/London');
 
@@ -14,7 +15,7 @@ class Customer{
   public $token;
 
     public function __construct($id){
-        $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
         $res = $mysqli->query("SELECT * FROM `customers` WHERE id =".$id);
         foreach($res as $row){
             $this->id = $row['id'];
@@ -24,7 +25,7 @@ class Customer{
         }
     }
     public static function create($queueID, $number){
-        $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
         //$token = md5($token.$number);
         $sql = "INSERT INTO `customers`(`number`, `queue_id`) VALUES($number, $queueID)";
         $mysqli->query($sql);

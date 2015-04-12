@@ -1,6 +1,7 @@
 user = "";
 $(document).ready(function()
 {
+	user = $.cookie("user");
 	$("#create").click(function()
 	{
 		$.get("api/index.php", 
@@ -34,6 +35,7 @@ $(document).ready(function()
 			{
 				console.log(data);
 				user = data.id;
+				$.cookie("user", data.id);
 				setInterval(poll, 1000);
 			}, "json");
 	}
@@ -41,12 +43,10 @@ $(document).ready(function()
 
 function poll()
 {
-			alert("data");
 	$.get("api/index.php", 
 		{action: "getStatus", id: user},
 		function(data)
 		{
-			alert("data2");
 			$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime);
 		}, "json");
 }

@@ -1,4 +1,7 @@
 <?php
+
+require_once "cred.php";
+
 error_reporting(E_ALL);
 spl_autoload_register(function ($class) {
     $class = strtolower($class);
@@ -17,7 +20,7 @@ class Queue{
 
   public function __construct($id){  
 
-    $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $result = $mysqli->query("SELECT * FROM `queues` WHERE id =".$id);
     foreach($result as $row){
         $this->id = $row['id'];
@@ -31,7 +34,7 @@ class Queue{
   }
 
   public static function create($name, $estimated_service_time){
-	  $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
 	  /*
     $db = DB::getInstance();
 	   */
@@ -53,7 +56,7 @@ class Queue{
 
   public function delete(){
     //$db = DB::getInstance();
-    $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $id = $this->id;
     $mysqli->query("DELETE FROM `Queues` WHERE `id` = $id");
   }
@@ -61,7 +64,7 @@ class Queue{
 
   public function nextCustomer(){
     //$db = DB::getInstance();
-    $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $this->last_customer_number = $this->last_customer_number + 1;
     $mysqli->query("UPDATE `Queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id);
     return $this->last_customer_number;
@@ -69,7 +72,7 @@ class Queue{
 
   public function getToNextCustomer(){
     //$db = DB::getInstance();
-    $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $this->current_number = $this->current_number + 1;
     $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
     $asdf = $this->current_number;
