@@ -41,7 +41,7 @@ class Queue{
 	   */
     $timeRightNow = time();
     $token = md5($name.$estimated_service_time.$timeRightNow);
-    $stmt = $mysqli->query("INSERT INTO queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`) VALUES('$name', '$estimated_service_time', 1, 1, '$token')");
+    $stmt = $mysqli->query("INSERT INTO queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`, `last_service_time`) VALUES('$name', '$estimated_service_time', 1, 1, '$token', NOW())");
     /*
     $stmt->bindParam(1, $name);
     $stmt->bindParam(2, $estimated_service_time);
@@ -76,17 +76,23 @@ class Queue{
     $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $this->current_number = $this->current_number + 1;
     $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
-    $mysqli->query("UPDATE `Queues` SET `current_number` = $current_number WHERE id = ".$this->id);
+    $asdf = $this->current_number;
+    $mysqli->query("UPDATE `Queues` SET `current_number` = $asdf WHERE id = ".$this->id);
+    $mysqli->query("UPDATE `Queues` SET `last_service_time` = NOW() WHERE id = ".$this->id);
+    $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
+
     
 
   }
 
   public function calculateEstimatedTime($newServiceTime){
-    echo "new service time: ".$newServiceTime;
-    $serviceTime = $newServiceTime->diff($this->last_service_time);
-    //$serviceTime = $newServiceTime - $this->last_service_time;
-    echo "<br>Service time:".$serviceTime;
-
+    $mysqli = new mysqli("localhost", "root", "root", "qr");
+    $to_time = strtotime($newServiceTime);
+    $from_time = strtotime($this->last_service_time);
+    $serviceTime = $to_time - $from_time;
+    $this->estimated_service_time = abs($serviceTime/60.0);
+    $asdf = $this->estimated_service_time;
+    $mysqli->query("UPDATE `queues` SET `estimated_service_time` = $asdf WHERE id = ".$this->id);
   }
 
 

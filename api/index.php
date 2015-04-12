@@ -31,7 +31,7 @@ elseif($action=="createNewCustomer"){
 	$data['id'] = $customerID;
 	echo json_encode($data);
 }
-elseif($action=="checkIfCurrentCustomer"){
+elseif($action=="checkCustomer"){
 	$id = isset($_GET['id'])?$_GET['id']:"";
 	$customer = new Customer($id);
 	$queueid = $customer->getQueueID();
