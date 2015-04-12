@@ -26,7 +26,10 @@ $(document).ready(function()
 			}, "json");
 			*/
 	});
+	$("#trade").click(function(){
 
+
+	});
 	if(status == "polling")
 	{
 		$.get("api/index.php", 
@@ -47,8 +50,16 @@ function poll()
 		{action: "getStatus", id: user},
 		function(data)
 		{
-console.log(data);
-			$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime);
+			/*$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime + " minutes");*/
+			$("#info").html("<div id = 'statusContainer'><div id='customerNumber'><span>Your number: </span>" + data.customerNumber + "</div><div id='currentNumber'><span>Current number: </span>" + data.currentNumber + "</div><div id='estimatedTime'><span>Estimated waiting time: </span>" + data.estimatedTime + " <span>minutes</span></div><div id = 'sliderContainer'><span>You are here</span><div id = 'slider'></div></div></div>");
+			console.log(data.customerNumber);
+			console.log(data.currentNumber);
+			console.log(data.lastPersonNumber);
+			$("#slider").slider({
+				value:parseInt(data.customerNumber),
+				min:parseInt(data.currentNumber),
+				max:parseInt(data.lastPersonNumber+1)			
+			})
 		}, "json");
 }
 

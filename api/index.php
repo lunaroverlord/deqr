@@ -52,6 +52,9 @@ elseif($action=="getStatus"){
 	$queue = new Queue($queueid);
 	$data = array();
 	$data['currentNumber'] = $queue->getCurrentNumber();
+	if($data['currentNumber']==0){
+		$data['currentNumber']=1;
+	}
 	$data['customerNumber'] = $customer->getNumber();
 	$data['lastPersonNumber'] = $queue->getLastCustomerNumber();
 	$data['queueName'] = $queue->name;

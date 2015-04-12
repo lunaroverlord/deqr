@@ -15,9 +15,11 @@ if(isset($_SERVER["QUERY_STRING"]) && $_SERVER["QUERY_STRING"] != "")
 
 <head>
 <title>Queuer - use your queuing time productively</title>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="qr.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="qr_generate/jquery.qrcode-0.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="cookie.js"></script>
 <script src="qr.js"></script>
 
@@ -37,7 +39,7 @@ queue = "<? echo $queue; ?>";
 	</div>
 <? } else if($status == "polling") { ?>
 	<p id="info"></p>
-	<button class="small">Trade places</button>
+	<button id="trade" class="small">Trade places</button>
 	<button class="small">Leave queue</button>
 
 	<p class="charging">The vendor is charging $10 for the service, you can pay any time.</p>

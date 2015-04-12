@@ -41,7 +41,7 @@ class Queue{
 	   */
     $timeRightNow = time();
     $token = md5($name.$estimated_service_time.$timeRightNow);
-    $stmt = $mysqli->query("INSERT INTO queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`, `last_service_time`) VALUES('$name', '$estimated_service_time', 1, 1, '$token', NOW())");
+    $stmt = $mysqli->query("INSERT INTO queues(`name`, `estimated_service_time`,`current_number`,`last_customer_number`, `token`, `last_service_time`) VALUES('$name', '$estimated_service_time', 0, 0, '$token', NOW())");
     /*
     $stmt->bindParam(1, $name);
     $stmt->bindParam(2, $estimated_service_time);
@@ -68,6 +68,9 @@ class Queue{
     $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $this->last_customer_number = $this->last_customer_number + 1;
     $mysqli->query("UPDATE `Queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id);
+    if($this->current_number==0){
+      $mysqli->query("UPDATE `Queues` SET `current_number` = 1 WHERE id = ".$this->id);
+    }
     return $this->last_customer_number;
   }
 
@@ -79,8 +82,9 @@ class Queue{
     $asdf = $this->current_number;
     $mysqli->query("UPDATE `Queues` SET `current_number` = $asdf WHERE id = ".$this->id);
     $mysqli->query("UPDATE `Queues` SET `last_service_time` = NOW() WHERE id = ".$this->id);
-    $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
-
+    $asdf = $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
+    $mysqli->query("UPDATE `Queues` SET `estimated_service_time` = $asdf WHERE id = ".$this->id);
+    
     
 
   }

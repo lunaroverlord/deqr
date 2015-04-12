@@ -28,3 +28,18 @@ p.charging
 	font-size: 18px;
 	font-family:sans-serif;
 }
+
+
+#statusContainer{
+	text-align:center;
+	font-size:xx-large;
+}
+
+#customerNumber > span, #currentNumber > span, #estimatedTime > span{
+	font-size:x-large;
+}
+
+#slider{
+	width:20%;
+	margin-left: 40%
+}
