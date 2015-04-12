@@ -64,5 +64,12 @@ elseif($action=="getStatus"){
 	$data['estimatedTime'] = $queue->estimated_service_time*($customer->getNumber() - $queue->getCurrentNumber());
 	echo json_encode($data);
 }
+elseif($action=="queueLength"){
+	$queueID = isset($_GET['queue'])?$_GET['queue']:"";
+	$queue = new Queue($queueID);
+	$data = array();
+	$data['length'] = $queue->getLength();
+	echo json_encode($data);	
+}
 ?>
 

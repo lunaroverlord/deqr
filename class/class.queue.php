@@ -99,6 +99,10 @@ class Queue{
     $mysqli->query("UPDATE `queues` SET `estimated_service_time` = $asdf WHERE id = ".$this->id);
   }
 
+  public function getLength(){
+    return $this->last_customer_number - $this->current_number + 1;
+  }
+
 
 
 
