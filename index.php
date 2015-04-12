@@ -34,10 +34,13 @@ queue = "<? echo $queue; ?>";
 <body>
 <img src="deqr.png" width="80%"></img>
 <? if($status == "default") { ?>
+	<div id="general-controls">
 	<button id="create">Create a queue</button>
 	<button id="join">Join a queue</button>
+	</div>
 	<div id="client-qr">
 	</div>
+	<div id="host-controls"><button class="small" id="next">Next client</button></div>
 <? } else if($status == "polling") { ?>
 	<p id="info"></p>
 	<div id = 'sliderContainer'><span>You are here</span><div id = 'slider'></div></div>

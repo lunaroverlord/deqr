@@ -11,7 +11,10 @@ $(document).ready(function()
 			{
 				//console.log(data);
 				queuer("http://olafs.eu/qr/?" + data.id);
-				//$.cookie(data.token);
+				$("#general-controls").hide();
+				$("#host-controls").show();
+				queue = data.id;
+
 			}, "json");
 		//display qr with link from data
 	});
@@ -32,6 +35,15 @@ $(document).ready(function()
 	});
 	$("#pay").click(function(){
 		$(".payments").show();
+	});
+
+	$("#next").click(function(){
+		$.get("api/index.php", 
+			{action: "checkCustomer", queue: queue},
+			function(data)
+			{
+
+			}, "json");
 	});
 
 	if(status == "polling")

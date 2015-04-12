@@ -24,7 +24,7 @@ button.small
 
 #client-qr
 {
-	margin: auto;
+	margin: 10px auto 10px auto;
 	width: 400px;
 }
 
@@ -73,6 +73,11 @@ p.charging
 }
 
 .payments
+{
+	display: none;
+}
+
+#host-controls
 {
 	display: none;
 }

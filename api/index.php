@@ -33,6 +33,7 @@ elseif($action=="createNewCustomer"){
 }
 elseif($action=="checkCustomer"){
 	$id = isset($_GET['id'])?$_GET['id']:"";
+	$queueid = isset($_GET['queue'])?$_GET['queue']:"";
 	$customer = new Customer($id);
 	$queueid = $customer->getQueueID();
 	$queue = new Queue($queueid);
