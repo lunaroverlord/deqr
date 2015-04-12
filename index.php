@@ -44,13 +44,14 @@ queue = "<? echo $queue; ?>";
 	<div id="host-controls"><button class="small" id="next">Next client</button></div>
 <? } else if($status == "polling") { ?>
 	<p id="info"></p>
-	<div id = 'sliderContainer'><span>You are here</span><div id = 'slider'></div></div>
+	<div id = 'sliderContainer'><span>You are here</span><div id = 'slider'></div><div id="vendor"></div></div>
+	<div style="clear:both;"></div>
 	<button id="trade" class="small">Trade places</button>
 	<button id="leave" class="small">Leave queue</button>
 	<button id="pay" class="small">Pay for service</button>
 
 	<div class="payments" id="service-payment">
-		<p class="charging">The vendor is charging $10 for the service, you can pay any time.</p>
+		<p id="charging">The vendor is charging $10 for the service, you can pay any time.</p>
 		<div class="braintree">
 		<form id="checkout" method="post" action="/checkout">
 		    <div id="dropin"></div>

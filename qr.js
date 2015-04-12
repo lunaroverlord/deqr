@@ -32,9 +32,11 @@ $(document).ready(function()
 			*/
 	});
 	$("#trade").click(function(){
+		$("#charging").html("The person in queue wants $2 to swap places with you.");
 		$(".payments").show();
 	});
 	$("#pay").click(function(){
+		$("#charging").html("The vendor is charging $10 for the service, you can pay any time.");
 		$(".payments").show();
 	});
 
@@ -74,6 +76,10 @@ function poll()
 			console.log(data.currentNumber);
 			console.log(data.lastPersonNumber);
 			*/
+			if(data.customerNumber == data.currentNumber && "vibrate" in navigator)
+			{
+				navigator.vibrate(1000);
+			}
 			$("#sliderContainer").show();
 			if(!userHasSlider)
 			{
