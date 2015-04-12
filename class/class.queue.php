@@ -59,7 +59,7 @@ class Queue{
     //$db = DB::getInstance();
     $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $id = $this->id;
-    $mysqli->query("DELETE FROM `Queues` WHERE `id` = $id");
+    $mysqli->query("DELETE FROM `queues` WHERE `id` = $id");
   }
 
 
@@ -67,9 +67,10 @@ class Queue{
     //$db = DB::getInstance();
     $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $this->last_customer_number = $this->last_customer_number + 1;
-    $mysqli->query("UPDATE `Queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id);
+    $mysqli->query("UPDATE `queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id);
+    echo "UPDATE `queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id;
     if($this->current_number==0){
-      $mysqli->query("UPDATE `Queues` SET `current_number` = 1 WHERE id = ".$this->id);
+      $mysqli->query("UPDATE `queues` SET `current_number` = 1 WHERE id = ".$this->id);
     }
     return $this->last_customer_number;
   }
@@ -80,10 +81,10 @@ class Queue{
     $this->current_number = $this->current_number + 1;
     $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
     $asdf = $this->current_number;
-    $mysqli->query("UPDATE `Queues` SET `current_number` = $asdf WHERE id = ".$this->id);
+    $mysqli->query("UPDATE `queues` SET `current_number` = $asdf WHERE id = ".$this->id);
     $mysqli->query("UPDATE `Queues` SET `last_service_time` = NOW() WHERE id = ".$this->id);
     $asdf = $this->calculateEstimatedTime(date("Y-m-d H:i:s"));
-    $mysqli->query("UPDATE `Queues` SET `estimated_service_time` = $asdf WHERE id = ".$this->id);
+    $mysqli->query("UPDATE `queues` SET `estimated_service_time` = $asdf WHERE id = ".$this->id);
     
     
 
