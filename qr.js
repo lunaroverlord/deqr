@@ -1,5 +1,6 @@
 user = "";
 userHasSlider = false;
+var timerInt;
 $(document).ready(function()
 {
 	user = $.cookie("user");
@@ -58,7 +59,7 @@ $(document).ready(function()
 				console.log(data);
 				user = data.id;
 				$.cookie("user", data.id);
-				setInterval(poll, 1000);
+				timerInt = setInterval(poll, 1000);
 			}, "json");
 	}
 });
@@ -76,9 +77,13 @@ function poll()
 			console.log(data.currentNumber);
 			console.log(data.lastPersonNumber);
 			*/
-			if(data.customerNumber == data.currentNumber && "vibrate" in navigator)
+			if(data.customerNumber == data.currentNumber)
 			{
-				navigator.vibrate(1000);
+				var audio = new Audio('ping.mp3');
+				audio.play();
+				if("vibrate" in navigator)
+					navigator.vibrate(1000);
+				clearInterval(timerInt);
 			}
 			$("#sliderContainer").show();
 			if(!userHasSlider)
