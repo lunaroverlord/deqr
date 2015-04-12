@@ -34,16 +34,18 @@ elseif($action=="createNewCustomer"){
 elseif($action=="checkCustomer"){
 	$id = isset($_GET['id'])?$_GET['id']:"";
 	$queueid = isset($_GET['queue'])?$_GET['queue']:"";
-	$customer = new Customer($id);
-	$queueid = $customer->getQueueID();
+	/*$customer = new Customer($id);
+	$queueid = $customer->getQueueID();*/
 	$queue = new Queue($queueid);
+	$queue->getToNextCustomer();
 	$data = array();
+	$data['result']=true;/*
 	if($queue->getCurrentNumber()==$customer->getNumber()){
-		$queue->getToNextCustomer();
-		$data['result']=true;
+		
+		
 	}else{
 		$data['result']=false;
-	}
+	}*/
 	echo json_encode($data);
 }
 elseif($action=="getStatus"){
