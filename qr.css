@@ -1,10 +1,15 @@
+img
+{
+	display: block;
+	margin: auto;
+}
 button
 {
 	display: block;
 	width: 80%;
 	height: 30%;
 	font-size: 200%;
-	background: #ddddff;
+	background: #dddddd;
 	border-radius:6px;
 	border:none;
 	margin: 5px auto;
@@ -39,7 +44,35 @@ p.charging
 	font-size:x-large;
 }
 
+#sliderContainer
+{
+	display: none;
+	text-align:center;
+	font-size:xx-large;
+}
+
+.ui-slider
+{
+	background: url(human.png) repeat-x;
+	background-size: 30px 100%;
+	border: none;
+	border-radius: 0;
+	height: 40px;
+}
+
+.ui-slider-handle, .ui-state-hover, .ui-state-default
+{
+	background: url(human.png) !important;
+	background-size: 100% 100%;
+	height: 50px !important;
+}
+
 #slider{
 	width:20%;
 	margin-left: 40%
+}
+
+.payments
+{
+	display: none;
 }

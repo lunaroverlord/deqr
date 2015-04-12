@@ -1,4 +1,5 @@
 user = "";
+userHasSlider = false;
 $(document).ready(function()
 {
 	user = $.cookie("user");
@@ -27,9 +28,12 @@ $(document).ready(function()
 			*/
 	});
 	$("#trade").click(function(){
-
-
+		$(".payments").show();
 	});
+	$("#pay").click(function(){
+		$(".payments").show();
+	});
+
 	if(status == "polling")
 	{
 		$.get("api/index.php", 
@@ -51,16 +55,30 @@ function poll()
 		function(data)
 		{
 			/*$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime + " minutes");*/
-			$("#info").html("<div id = 'statusContainer'><div id='customerNumber'><span>Your number: </span>" + data.customerNumber + "</div><div id='currentNumber'><span>Current number: </span>" + data.currentNumber + "</div><div id='estimatedTime'><span>Estimated waiting time: </span>" + data.estimatedTime + " <span>minutes</span></div><div id = 'sliderContainer'><span>You are here</span><div id = 'slider'></div></div></div>");
+			$("#info").html("<div id = 'statusContainer'><div id='customerNumber'><span>Your number: </span>" + data.customerNumber + "</div><div id='currentNumber'><span>Currently serving: </span>" + data.currentNumber + "</div><div id='estimatedTime'><span>You have to wait roughly </span>" + data.estimatedTime + " <span>minutes</span></div></div>");
+			/*
 			console.log(data.customerNumber);
 			console.log(data.currentNumber);
 			console.log(data.lastPersonNumber);
-			$("#slider").slider({
-				value:parseInt(data.customerNumber),
-				min:parseInt(data.currentNumber),
-				max:parseInt(data.lastPersonNumber+1)			
-			})
+			*/
+			$("#sliderContainer").show();
+			if(!userHasSlider)
+			{
+				$("#slider").slider({
+					value:parseInt(-data.customerNumber),
+					min:parseInt(-data.lastPersonNumber),
+					max:parseInt(-data.currentNumber),
+					slide: userChoice
+				});
+			}
 		}, "json");
+}
+
+function userChoice(e, ui)
+{
+	userHasSlider = true;
+	$("#trade").html("Trade places with " + -ui.value);
+	//alert(ui.value);
 }
 
 function queuer(link)

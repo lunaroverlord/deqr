@@ -68,7 +68,6 @@ class Queue{
     $mysqli = new mysqli(G::$host, G::$user, G::$pass, "qr");
     $this->last_customer_number = $this->last_customer_number + 1;
     $mysqli->query("UPDATE `queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id);
-    echo "UPDATE `queues` SET `last_customer_number` = ".$this->last_customer_number." WHERE id = ".$this->id;
     if($this->current_number==0){
       $mysqli->query("UPDATE `queues` SET `current_number` = 1 WHERE id = ".$this->id);
     }
