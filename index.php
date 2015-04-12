@@ -40,6 +40,7 @@ queue = "<? echo $queue; ?>";
 	</div>
 	<div id="client-qr">
 	</div>
+	<p id="queue-id"> </p>
 	<div id="host-controls"><button class="small" id="next">Next client</button></div>
 <? } else if($status == "polling") { ?>
 	<p id="info"></p>

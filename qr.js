@@ -13,6 +13,7 @@ $(document).ready(function()
 				queuer("http://olafs.eu/qr/?" + data.id);
 				$("#general-controls").hide();
 				$("#host-controls").show();
+				$("#queue-id").html(data.id);
 				queue = data.id;
 
 			}, "json");
