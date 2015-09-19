@@ -1,59 +1,74 @@
+/*
+ * Business logic for the DeQR service
+ *
+ * Currently the bare minimum functionality is implemented, which lets 
+ * you create a queue and other people join it. Joiners get a status view
+ * of the current situation and can select a person to trade places with.
+ *
+ * When it's the client's turn, they get a beep and vibration signal through
+ * their HTML5 browser.
+ */
+
+//Default - no user
 user = "";
 userHasSlider = false;
 var timerInt;
+
 $(document).ready(function()
 {
+	// Get user
 	user = $.cookie("user");
+	 
+	// Button: create a queue
 	$("#create").click(function()
 	{
 		$.get("api/index.php", 
 			{action: "createNewQueue", name: "test", time: 20},
 			function(data)
 			{
-				//console.log(data);
 				queuer("http://olafs.eu/qr/?" + data.id);
 				$("#general-controls").hide();
 				$("#host-controls").show();
 				$("#queue-id").html(data.id);
 				queue = data.id;
-
 			}, "json");
-		//display qr with link from data
 	});
+
+	// Button: join an existing queue
 	$("#join").click(function()
 	{
-		//qr
-		/*
-		$.get("api/index.php", 
-			{action: "createNewQueue", name: "test", time: 45},
-			function(data)
-			{
-				console.log(data);
-			}, "json");
-			*/
+		// Not implemented
 	});
-	$("#trade").click(function(){
+
+	// Button: trade places
+	$("#trade").click(function()
+	{
+		// Dummy offer
 		$("#charging").html("The person in queue wants $2 to swap places with you.");
 		$(".payments").show();
 	});
-	$("#pay").click(function(){
+
+	// Button: pay for service
+	$("#pay").click(function()
+	{
+		// Dummy payment
 		$("#charging").html("The vendor is charging $10 for the service, you can pay any time.");
 		$(".payments").show();
 	});
 
-	$("#next").click(function(){
+	// Button: next customer
+	$("#next").click(function()
+	{
 		$.get("api/index.php", 
-			{action: "checkCustomer", queue: queue},
-			function(data)
-			{
-
-			}, "json");
+			{ action: "checkCustomer", queue: queue },
+			function(data) { }, "json");
 	});
 
+	// Queueing in progress, poll server
 	if(status == "polling")
 	{
 		$.get("api/index.php", 
-			{action: "createNewCustomer", id: queue},
+			{ action: "createNewCustomer", id: queue },
 			function(data)
 			{
 				console.log(data);
@@ -64,31 +79,34 @@ $(document).ready(function()
 	}
 });
 
+// Retrieve the status page (called every time)
 function poll()
 {
 	$.get("api/index.php", 
-		{action: "getStatus", id: user},
+		{ action: "getStatus", id: user },
 		function(data)
 		{
-			/*$("#info").html("Waiting as " + data.currentNumber + " / " + data.lastPersonNumber + ", time remaining " + data.estimatedTime + " minutes");*/
+			// TODO: prettify
 			$("#info").html("<div id = 'statusContainer'><div id='customerNumber'><span>Your number: </span>" + data.customerNumber + "</div><div id='currentNumber'><span>Currently serving: </span>" + data.currentNumber + "</div><div id='estimatedTime'><span>You have to wait roughly </span>" + Math.abs(data.estimatedTime) + " <span>minutes</span></div></div>");
-			/*
-			console.log(data.customerNumber);
-			console.log(data.currentNumber);
-			console.log(data.lastPersonNumber);
-			*/
+
+			// We are the current customer and it's our turn - beep and vibrate
 			if(data.customerNumber == data.currentNumber)
 			{
 				var audio = new Audio('ping.mp3');
 				audio.play();
+
 				if("vibrate" in navigator)
 					navigator.vibrate(1000);
+
 				clearInterval(timerInt);
 			}
+
+			// Show slider to select which person to trade with
 			$("#sliderContainer").show();
 			if(!userHasSlider)
 			{
-				$("#slider").slider({
+				$("#slider").slider(
+				{
 					value:parseInt(-data.customerNumber),
 					min:parseInt(-data.lastPersonNumber),
 					max:parseInt(-data.currentNumber),
@@ -98,13 +116,14 @@ function poll()
 		}, "json");
 }
 
+// Handler for trading places
 function userChoice(e, ui)
 {
 	userHasSlider = true;
 	$("#trade").html("Trade places with " + -ui.value);
-	//alert(ui.value);
 }
 
+// Creates a QR code of given URL
 function queuer(link)
 {
     options = 
